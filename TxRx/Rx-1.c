@@ -191,7 +191,7 @@ void *mainThread(void *arg0)
     RF_cmdPropRx.maxPktLen = MAX_LENGTH;
     RF_cmdPropRx.pktConf.bRepeatOk = 1;
     RF_cmdPropRx.pktConf.bRepeatNok = 1;
-	RF_cmdPropRx.syncWord = 0x930B51D5;
+	//RF_cmdPropRx.syncWord = 0x930B51D5;
     /* Request access to the radio */
 #if defined(DeviceFamily_CC26X0R2)
     rfHandle = RF_open(&rfObject, &RF_prop, (RF_RadioSetup*)&RF_cmdPropRadioSetup, &rfParams);
