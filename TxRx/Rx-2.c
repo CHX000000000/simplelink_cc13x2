@@ -152,10 +152,8 @@ void *mainPwm(void *arg0)
         for(i=0;i<7;i++)
         {
             text[i]=packet[i+2];
-            //Display_printf(displayHandle, 0, 0,"%c",text[i]);
         }
         duty=atoi(text);
-        //Display_printf(displayHandle, 0, 0,"TT%d",duty);
         PWM_setDuty(pwm1,duty/110);
         usleep(100000);
     }
