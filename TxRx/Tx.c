@@ -189,7 +189,7 @@ void *mainThread(void *arg0)
     RF_cmdPropTx.pktLen = PAYLOAD_LENGTH;
     RF_cmdPropTx.pPkt = packet;
     RF_cmdPropTx.startTrigger.triggerType = TRIG_NOW;
-    //RF_cmdPropTx.syncWord = 0x930B51D5;
+    
 
     /* Request access to the radio */
 #if defined(DeviceFamily_CC26X0R2)
