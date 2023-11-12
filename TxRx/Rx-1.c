@@ -44,7 +44,6 @@
 /* Board Header files */
 #include "ti_drivers_config.h"
 #include <ti/display/Display.h>
-#include <ti/drivers/PWM.h>
 /* Application Header files */
 #include "RFQueue.h"
 #include <ti_radio_config.h>
@@ -120,8 +119,6 @@ PIN_Config pinTable[] =
 };
 
 /***** Function definitions *****/
-uint16_t   duty = 0;
-PWM_Handle pwm1;
 void *mainThread(void *arg0)
 {
     RF_Params rfParams;
@@ -138,27 +135,6 @@ void *mainThread(void *arg0)
 
     Display_printf(displayHandle, 0, 0,
                         "Starting the RX example");
-    uint16_t   pwmPeriod = 3000;
-
-
-    PWM_Handle pwm1 = NULL;
-    PWM_Params params;
-    PWM_init();
-
-    PWM_Params_init(&params);
-    params.dutyUnits = PWM_DUTY_US;
-    params.dutyValue = 0;
-    params.periodUnits = PWM_PERIOD_US;
-    params.periodValue = pwmPeriod;
-    pwm1 = PWM_open(CONFIG_PWM_0, &params);
-    if (pwm1 == NULL) {
-            /* CONFIG_PWM_0 did not open */
-        Display_printf(displayHandle, 0, 0,
-                                "CONFIG_PWM_0 did not open");
-        while (1);
-    }
-
-    PWM_start(pwm1);
 
     /* Open LED pins */
     ledPinHandle = PIN_open(&ledPinState, pinTable);
@@ -191,7 +167,6 @@ void *mainThread(void *arg0)
     RF_cmdPropRx.maxPktLen = MAX_LENGTH;
     RF_cmdPropRx.pktConf.bRepeatOk = 1;
     RF_cmdPropRx.pktConf.bRepeatNok = 1;
-	//RF_cmdPropRx.syncWord = 0x930B51D5;
     /* Request access to the radio */
 #if defined(DeviceFamily_CC26X0R2)
     rfHandle = RF_open(&rfObject, &RF_prop, (RF_RadioSetup*)&RF_cmdPropRadioSetup, &rfParams);
